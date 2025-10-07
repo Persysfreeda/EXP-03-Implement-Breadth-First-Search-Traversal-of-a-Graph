@@ -2,9 +2,8 @@
 Breadth First Search Traversal of a Graph
 
 
-AIM: 
+AIM:To Implement Breadth First Search Traversal of a Graph using Python 3
 Theory: 
-To Implement Breadth First Search Traversal of a Graph using Python 3. 
 
 Breadth-First Traversal (or Search) for a graph is like the Breadth-First Traversal of a tree. 
 The only catch here is that, unlike trees, graphs may contain cycles so that we may come to the same 
@@ -116,9 +115,54 @@ Sample Input :
 5 6 
 0 1 
 0 2 
-1 2 
+1 2
 1 3 
 2 4 
 3 4 
 Sample Output: 
 ['0', '1', '2', '3', '4'] 
+
+from collections import deque, defaultdict
+
+# Function to perform BFS traversal
+def bfs(graph, start, visited, path):
+    queue = deque()              # Initialize queue
+    path.append(start)           # Add start node to path
+    queue.append(start)          # Enqueue start node
+    visited[start] = True        # Mark start as visited
+
+    while len(queue) != 0:
+        node = queue.popleft()   # Dequeue a node from queue
+        for neighbour in graph[node]:
+            if not visited[neighbour]:
+                path.append(neighbour)
+                queue.append(neighbour)
+                visited[neighbour] = True
+    return path
+
+# Driver Code
+if __name__ == "__main__":
+    graph = defaultdict(list)
+    v, e = map(int, input("Enter number of vertices and edges: ").split())
+
+    print("Enter the edges (u v):")
+    for i in range(e):
+        u, v = map(str, input().split())
+        graph[u].append(v)
+        graph[v].append(u)   # Since the graph is undirected
+
+    start = '0'              # Starting node
+    path = []
+    visited = defaultdict(bool)
+
+    traversed_path = bfs(graph, start, visited, path)
+    print("BFS Traversal:", traversed_path)
+
+<img width="655" height="302" alt="image" src="https://github.com/user-attachments/assets/af208831-1a3b-4deb-aa16-4eca973ff846" />
+
+Result :
+Thus,  Breadth First Search Traversal of a Graph using Python 3 has been implemented
+
+
+
+
